@@ -7,7 +7,7 @@ Author Toivo Kärkinen
 
 ## Määrittelydokumentaatio
 
-[Määrittelydokumentaatio](/Dokumentaatio/maaritys.md)
+[Määrittelydokumentaatio](Dokumentaatio/maaritys.md)
 
 ## Viikkoraportit
 
