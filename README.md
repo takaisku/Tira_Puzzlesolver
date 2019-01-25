@@ -13,4 +13,18 @@ Author Toivo Kärkinen
 
 [Viikkoraportti 1](Dokumentaatio/viikko1.md)
 
+## Viikkoraportit
 
+[Viikkoraportti 2](Dokumentaatio/viikko2.md)
+
+## Testiraportti
+
+[Jacoco test](Dokumentaatio/reports/tests/test/index.html)
+
+Tässä vaiheessa vasta Puzzle.java testattu
+
+## Javadoc
+
+[Javadoc](Dokumentaatio/javadoc/index.html)
+
+Tässä vaiheessa vasta Model Puzzle.java
