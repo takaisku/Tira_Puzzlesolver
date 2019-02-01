@@ -13,9 +13,10 @@ Author Toivo Kärkinen
 
 [Viikkoraportti 1](Dokumentaatio/viikko1.md)
 
-## Viikkoraportit
 
 [Viikkoraportti 2](Dokumentaatio/viikko2.md)
+
+[Viikkoraportti 3](Dokumentaatio/viikko3.md)
 
 ## Testiraportti
 
