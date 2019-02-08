@@ -9,6 +9,10 @@ Author Toivo Kärkinen
 
 [Määrittelydokumentaatio](Dokumentaatio/maaritys.md)
 
+[Toteutusdokumentaatio](Dokumentaatio/toteutus.md)
+
+[Testausdokumentaatio](Dokumentaatio/testausdokumentti.md)
+
 ## Viikkoraportit
 
 [Viikkoraportti 1](Dokumentaatio/viikko1.md)
@@ -17,6 +21,8 @@ Author Toivo Kärkinen
 [Viikkoraportti 2](Dokumentaatio/viikko2.md)
 
 [Viikkoraportti 3](Dokumentaatio/viikko3.md)
+
+[Viikkoraportti 4](Dokumentaatio/viikko4.md)
 
 ## Testiraportti
 
