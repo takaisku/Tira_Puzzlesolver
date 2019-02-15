@@ -24,6 +24,8 @@ Author Toivo Kärkinen
 
 [Viikkoraportti 4](Dokumentaatio/viikko4.md)
 
+[Viikkoraportti 5](Dokumentaatio/viikko5.md)
+
 ## Testiraportti
 
 [Jacoco test](Dokumentaatio/reports/tests/test/index.html)
