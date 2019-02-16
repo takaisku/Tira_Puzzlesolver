@@ -1,6 +1,7 @@
 package ui;
 
 
+import Algorithms.Astar;
 import Algorithms.BreadthFirst;
 import Model.Puzzle;
 
@@ -22,7 +23,8 @@ public class Main {
     public static void main(String[] args) {
         Puzzle first;
         BreadthFirst bread;
-        first = new Puzzle(4);
+        Astar astar;
+        first = new Puzzle(3);
         
         
         
@@ -45,11 +47,12 @@ public class Main {
        System.out.println(first.getColumnOfNumber(14));
        
        System.out.println(first);
-       bread = new BreadthFirst(first);
-       System.out.println("siirtoja tarvitaan " +bread.showResult());
+       //bread = new BreadthFirst(first);
+       //System.out.println("siirtoja tarvitaan " +bread.showResult());
        // jää vielä jumiin, ainakin jos suffle(120)
        
-       
+       astar = new Astar(first);
+       System.out.println("siirtoja tarvitaan " + astar.showResult());
        
        
     }

@@ -43,7 +43,6 @@ public class Queue {
     }
     
     public void add(Puzzle added) {  
-        System.out.println("jonoon");
         que[head++] = added;
         if (head == size) {
             this.resize();
@@ -58,7 +57,9 @@ public class Queue {
         if (isEmpty()) {
             return null;
         }
-        return que[tail++];
+        Puzzle rved = que[tail];
+        que[tail++] = null;
+        return rved;
     }
         
 }

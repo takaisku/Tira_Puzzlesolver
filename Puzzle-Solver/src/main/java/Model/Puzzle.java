@@ -18,13 +18,14 @@ import java.util.Random;
  * lastMove     edellinen siirtosuunta 
  * 
  */
-public class Puzzle {
+public class Puzzle implements Comparable<Puzzle> {
     private int[] table;
     private int freeRow;
     private int freeCol;
     private int cubic;    
     private int row;
     private int lastMove;
+    private int cost;
     
     /**
      * 
@@ -105,48 +106,50 @@ public class Puzzle {
     
     public boolean canMoveRight() {
         System.out.println("paikka " + freeCol + " " + " maxCol " + (row-1));
-        return freeCol < (row -1);
+        return freeCol < (row -1) && lastMove != 9;
     }
     
     public boolean canMoveDown() {
-        return freeRow < (row-1);
+        return freeRow < (row-1)&& lastMove != 12;
     }
     
     public boolean canMoveLeft() {
-       System.out.println("paikka " + freeCol + " " + " minCol " + 0);
-         
-       return freeCol > 0;
+      return freeCol > 0 && lastMove != 3;
     }
     
     public boolean canMoveUp() {
-        return freeRow > 0;
+        return freeRow > 0 && lastMove != 6;
     }
     
     public Puzzle moveLeft() {
         Puzzle left = copyPuzzle();
         left.table[freeRow*row+freeCol] = this.table[freeRow*row+freeCol-1];
-        left.freeCol--;        
+        left.freeCol--;
+        left.lastMove = 9;
         return left;
     }
     
      public Puzzle moveRight() {
         Puzzle right = copyPuzzle();
         right.table[freeRow*row+freeCol] = this.table[freeRow*row+freeCol+1];
-        right.freeCol++;        
+        right.freeCol++; 
+        right.lastMove = 3;
         return right;
     }
      
      public Puzzle moveUp() {
         Puzzle up = copyPuzzle();
         up.table[freeRow*row+freeCol] = this.table[(freeRow-1)*row+freeCol];
-        up.freeRow--;        
+        up.freeRow--;   
+        up.lastMove = 12;
         return up;
     }
      
      public Puzzle moveDown() {
         Puzzle down = copyPuzzle();
         down.table[freeRow*row+freeCol] = this.table[(freeRow+1)*row+freeCol];
-        down.freeRow++;        
+        down.freeRow++;
+        down.lastMove = 6;
         return down;
     }
      
@@ -167,6 +170,23 @@ public class Puzzle {
         return manh;
     }
     
+    public int countMissPlaced(){
+        int cmp=0;
+        for (int i=0; i< (cubic-1);i++){
+            if (table[i]!= i+1) {
+                cmp++;
+            }
+        }
+        if (table[cubic-1]!=0) {
+            cmp++;
+        }
+        return cmp;
+    }
+    
+    public int getCost(){
+        this.cost = Math.max(manhattan(), countMissPlaced());
+        return this.cost;
+    }
     
     /**
      * Apumetodi, jolla saadaan selville millä rivillä jokin numero on
@@ -287,6 +307,17 @@ public class Puzzle {
             }
         }
         return tablePrint; 
+    }
+
+    @Override
+    public int compareTo(Puzzle o) {
+        if (this.cost<o.cost) {
+            return 1;
+        }
+        if (this.cost>o.cost){
+            return -1;
+        }
+        return 0;
     }
 }
     
