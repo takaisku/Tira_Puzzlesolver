@@ -56,7 +56,8 @@ public class Heap {
     }
 
     private void resize() {
-        Puzzle[] tmp = new Puzzle[size*2-1];
+        System.out.println("lisää tilaa " + size);
+        Puzzle[] tmp = new Puzzle[(size+1)*2-1];
         for (int i= 0;i<size;i++){
             tmp[i]=heap[i];
         }
@@ -90,8 +91,8 @@ public class Heap {
         shiftDown(parent);
     }
 
-    private void siftUp(int parent, int left){
-        if (heap[left]== null){
+    private void siftUp(int parent, int left){        
+        if (left>=size || heap[left]== null){
             return;
         }
         if (heap[left+1]== null) {

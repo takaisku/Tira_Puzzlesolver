@@ -7,6 +7,8 @@ package Model;
  */
 
 import Model.Puzzle;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,9 +22,16 @@ import static org.junit.Assert.*;
  */
 public class PuzzleTest {
     Puzzle puzzle;
-    
+    Puzzle solvable;
+    Puzzle notSolvable;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
+
     public PuzzleTest() {
         puzzle = new Puzzle(4);
+        
     }
     
     @BeforeClass
@@ -35,11 +44,15 @@ public class PuzzleTest {
     
     @Before
     public void setUp() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
         puzzle.fill();
-    }
+    }   
     
     @After
     public void tearDown() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 
     @Test
@@ -62,7 +75,7 @@ public class PuzzleTest {
     }
     
     @Test
-    public void columnNumberMax() {
+    public void columnNumberMax(){
         int search = puzzle.getRow()*puzzle.getRow()-1;
         int result = puzzle.getRow()-2;
         assertEquals(result, puzzle.getColumnOfNumber(search));
@@ -70,14 +83,49 @@ public class PuzzleTest {
     }
     
     @Test
-    public void checkWithFill() {
+    public void checkWithFill(){
         assertTrue(puzzle.check());
     }
     
     @Test
-    public void chechFalseWithSuffle() {
+    public void chechFalseWithSuffle(){
         puzzle.suffle(1);
-        assertFalse(puzzle.check()  );
+        assertFalse(puzzle.check()  ); 
     }
+    
+    @Test 
+    public void givenPuzzleWithWrongSize(){
+        puzzle=new Puzzle(1);
+        int[] candidate =new int[]{8,4,2,3,1,7,9,10,12,11,13,8,6,0,17,14,15};
+        assertFalse(puzzle.isValid(candidate));}
+    
+    @Test 
+    public void givenPuzzleWithTwoSameTile(){
+        puzzle=new Puzzle(1);
+        int[] candidate =new int[]{8,4,2,3,1,7,9,10,12,11,13,8,6,0,14,15};
+        assertFalse(puzzle.isValid(candidate));
+    }   
+    
+    @Test 
+    public void givenAcceptablePuzzle(){
+        puzzle=new Puzzle(1);
+        int[] candidate =new int[]{5,4,2,3,1,7,9,10,12,11,13,8,6,0,14,15};
+        assertTrue(puzzle.isValid(candidate)); }
+    
+    
+   
+    
+    @Test
+    public void puzzleUnSolvable(){
+        solvable = new Puzzle(new int[]{8,4,2,3,1,7,9,10,12,11,13,5,6,0,14,15});
+        assertFalse(solvable.solvable());           
+        }
+        
+    @Test
+    public void puzzleSolvable(){
+        solvable = new Puzzle(new int[]{8,4,2,3,1,7,9,10,12,11,13,5,6,0,15,14});
+        assertTrue(solvable.solvable()); 
+    }
+    
     
 }

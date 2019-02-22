@@ -15,7 +15,8 @@ import java.util.Random;
  * freeCol      tyhjän ruudun sarake
  * row          pelialueen sivun koko ruutuina ja siis myös column
  * cubic        pelialueen koko ruutuina
- * lastMove     edellinen siirtosuunta 
+ * lastMove     edellinen siirtosuunta, used not to go
+ * cost         manhattan + missplaced, used with comparation
  * 
  */
 public class Puzzle implements Comparable<Puzzle> {
@@ -47,33 +48,48 @@ public class Puzzle implements Comparable<Puzzle> {
     /**
      * 
      * @param game pelialue voidaan antaa taulukkona
-     * 
+     * lähinnä testausta varten
      * 
      */
     
     public Puzzle(int[] game) {
-        
-        row =(int) Math.sqrt(game.length);
+        if (isValid(game)) {
+            table = game;
+            for (int i = 0;i<cubic;i++) {            
+            if (table[i]==0) {
+                freeRow = Math.floorDiv(i, row);
+                freeCol = i%row;
+                }
+            }
+        lastMove = 0;
+        }
+    }   
+    
+    
+    public final boolean isValid(int[] table){
+        row =(int) Math.sqrt(table.length);
         cubic = row*row;
-        if (cubic!=game.length) {
+        if (cubic!=table.length) {
             // epäkelpo pelikoko
             System.out.println("Virheellinen puzzle, pelialue ei ole neliö!");
+            return false;
         }
         boolean[] checkTable = new boolean[cubic];
-        table = game;
         for (int i = 0;i<cubic;i++) {
             if (checkTable[table[i]]) {
                 // sama numero kahdesti
                 System.out.println("Virheellinen puzzle, kaksi samaa numeroa!");
+                return false;
             }
-            if (table[i]==0) {
-                freeRow = Math.floorDiv(i, row);
-                freeCol = i%row;
-            }
+            checkTable[table[i]]=true;
         }
-        lastMove = 0;     
-        
+        return true;        
     }
+    
+    /**
+     * apumetodi
+     * @return kopioi tämän puzzlen
+     */
     
     public Puzzle copyPuzzle() {
         Puzzle next= new Puzzle(row);
@@ -104,30 +120,64 @@ public class Puzzle implements Comparable<Puzzle> {
         return lastMove;
     }
     
+    /**
+     * voidaan siirtää tyhjä oikealle, jos ei ole oikeassa laidassa eikä viimeksi 
+     * ole siirrytty vasemmalle
+     * @return 
+     */
+    
     public boolean canMoveRight() {
-        System.out.println("paikka " + freeCol + " " + " maxCol " + (row-1));
-        return freeCol < (row -1) && lastMove != 9;
+       return freeCol < (row -1) && lastMove != 9;
     }
+    
+    /**
+     * voidaan siirtää tyhjä alas, jos ei ol ala laidassa eikä viimeksi 
+     * ole siirrytty ylös
+     * @return 
+     */
     
     public boolean canMoveDown() {
         return freeRow < (row-1)&& lastMove != 12;
     }
     
+    /**
+     * voidaan siirtää tyhjä vasemmalle, jos ei ole vasemmassa laidassa eikä viimeksi 
+     * ole siirrytty oikealla
+     * @return 
+     */
+    
     public boolean canMoveLeft() {
       return freeCol > 0 && lastMove != 3;
     }
+    
+    /**
+     * voidaan siirtää tyhjä ylös, jos ei ole ylä laidassa eikä viimeksi 
+     * ole siirrytty alas
+     * @return 
+     */
     
     public boolean canMoveUp() {
         return freeRow > 0 && lastMove != 6;
     }
     
-    public Puzzle moveLeft() {
+    /**
+     * 
+     * @return palauttaa puzzlen jossa tästä vapaakohta on siirretty vasemmalle
+     * 
+     */
+    public  Puzzle moveLeft() {
         Puzzle left = copyPuzzle();
         left.table[freeRow*row+freeCol] = this.table[freeRow*row+freeCol-1];
         left.freeCol--;
         left.lastMove = 9;
         return left;
     }
+    
+    /**
+     * 
+     * @return palauttaa puzzlen jossa tästä vapaakohta on siirretty oikealle
+     * 
+     */
     
      public Puzzle moveRight() {
         Puzzle right = copyPuzzle();
@@ -137,6 +187,12 @@ public class Puzzle implements Comparable<Puzzle> {
         return right;
     }
      
+    /**
+     * 
+     * @return palauttaa puzzlen jossa tästä vapaakohta on siirretty ylös
+     * 
+     */
+     
      public Puzzle moveUp() {
         Puzzle up = copyPuzzle();
         up.table[freeRow*row+freeCol] = this.table[(freeRow-1)*row+freeCol];
@@ -144,6 +200,12 @@ public class Puzzle implements Comparable<Puzzle> {
         up.lastMove = 12;
         return up;
     }
+    
+    /**
+     * 
+     * @return palauttaa puzzlen jossa tästä vapaakohta on siirretty alas
+     * 
+     */
      
      public Puzzle moveDown() {
         Puzzle down = copyPuzzle();
@@ -152,6 +214,13 @@ public class Puzzle implements Comparable<Puzzle> {
         down.lastMove = 6;
         return down;
     }
+     
+    /**
+     * 
+     * @return kokonaisluvun, joka on summa jokaisen numeron vaaka+pysty etäi
+     * syydestä oikealle paikalleen.
+     * 
+     */
      
     public int manhattan(){
         int manh = 0;
@@ -170,6 +239,11 @@ public class Puzzle implements Comparable<Puzzle> {
         return manh;
     }
     
+    /**
+     * 
+     * @return palauttaa kuinka monta laattaa ei ole omalla paikallaan
+     * 
+     */
     public int countMissPlaced(){
         int cmp=0;
         for (int i=0; i< (cubic-1);i++){
@@ -182,6 +256,12 @@ public class Puzzle implements Comparable<Puzzle> {
         }
         return cmp;
     }
+    /**
+     * 
+     * @return heurestic funktio for astar
+     * 
+     */
+    
     
     public int getCost(){
         this.cost = Math.max(manhattan(), countMissPlaced());
@@ -250,9 +330,9 @@ public class Puzzle implements Comparable<Puzzle> {
             do {
                 a = random.nextInt(cubic);
             } while (a ==freeTile);
-            do {
+           do {
                 b = random.nextInt(cubic);
-            } while (b == freeTile && b==a);
+            } while (b == freeTile || b==a);
             int c = table[a];
             table[a] = table[b];
             table[b]= c;
@@ -308,6 +388,34 @@ public class Puzzle implements Comparable<Puzzle> {
         }
         return tablePrint; 
     }
+    
+    /**
+     * Using parity of inversions if solvable
+     * 
+     * @return 
+     */
+    
+    
+        public boolean solvable(){
+        boolean[] found = new boolean[cubic];
+        int inversion=0;
+        for (int i = 0; i<cubic;i++){
+            for(int j=1;j<table[i];j++){
+                if (!found[j]){
+                    inversion++;
+                }
+                
+            }
+            found[table[i]]=true;
+        }
+        return (inversion%2==0);
+    }
+        
+    /**
+     * 
+     * @return palauttaa kumpi puzzle on lähempänä ratkaisua cost metodin perusteella
+     * 
+     */
 
     @Override
     public int compareTo(Puzzle o) {

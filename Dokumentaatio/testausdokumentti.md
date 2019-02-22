@@ -1,3 +1,9 @@
 # Testausdokumentti
 
-Tähän mennessä vain aiemmin tehtyjä Puzzle luokan osia on yksikkötestattu.
+Tähän mennessä seuraaville luokille on yksikkötestaus:
+
+Puzzle
+
+Queue
+
+Heap

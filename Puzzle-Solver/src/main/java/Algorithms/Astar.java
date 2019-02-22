@@ -26,11 +26,11 @@ public class Astar {
     }
     
     private void run() {
+        result.start();
         Puzzle candidate;
         while (!heap.isEmpty()){
             current = heap.remove();
             result.addMove();
-            System.out.println("current cost "+ current.getCost());
             if (current.check()) {
                 break;
             }
@@ -63,6 +63,9 @@ public class Astar {
                 heap.add(candidate);
             }
         }
+        result.end();
+        heap=null;
+        System.gc();
     }
     
     public Result showResult(){

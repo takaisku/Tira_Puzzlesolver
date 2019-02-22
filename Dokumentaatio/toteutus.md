@@ -2,9 +2,9 @@
 
 ## Ohjelman yleisrakenne
 
-Ohjelman käyttöliittymä on ainakin vielä luokassa Main. Aluksi luodaan Puzzle järjestyksessä ja sitten tulostetaan sen Manhattanluku tarkistuksen vuoksi. Tulostetaan numeron 7 sijainti tarkistuksen vuoksi. Sekoitetaan Puzzle tekemällä 10 kahden numeron keskinäistä siirtoa. Tulostetaan onko saatu Puzzle järjestyksessä ja mikä sen Manhattansumma on. Tulostetaan vielä numeron 7 sijainti ja koko Puzzle tarkistusta varten.
+Ohjelman käyttöliittymä on ainakin vielä luokassa Main. Algoritmin Astar suoritusta testataan yrittämällä ajaa se kymmenelle 4x4 puzzlelle. Aluksi luodaan Puzzle järjestyksessä ja sitten tulostetaan sen Manhattanluku tarkistuksen vuoksi.  Sekoitetaan Puzzle tekemällä 30 kahden numeron keskinäistä siirtoa. Tulostetaan onko saatu Puzzle järjestyksessä ja mikä sen Manhattansumma on. Sitten ratkaistaan se Astar algoritmilla. Viimeisin ajo ratkaisi 4 puzzlea, mutta jäi viidenteen yli 3ksi minuutiksi. Algoritmia tulisi kehittää niin, ettei se palaisi samaan tilanteeseen.
 
-Tämän jälkeen suoritetaan ratkaisu leveyshakuun perustuen. Ohjelma on kesken, ja manuaalisessa testauksessa jäi jumiin kun suffle(120) sekoitus tehtiin. Nyt main ohjelmaan on laitettu suffle(10), mutta sitä ei ole vielä itse testattu. +Leveyshaku on toteutettu, mutta ei tehokas ja kaatuu muistiongelmaan 15 puzzlella. 8 puzzlella saatu kerran tulos 374175 siirtoa 49 sek. Nyt yritetään algoritmia Astar, mutta siinä keon toteutuksen virhe estää ratkaisuun pääsyn. Jatkuu viikolla 6. Aiemmin tehty leveyshaku käyttää liikaa aikaa ja muistia ratkaistaakseen 4x4 kokoisen Puzzlen, pisin ajo kesti 19 min 56 sek, päätyen muistin loppumiseen. 3x3 Puzzle saatiin kerran ratkaistua ajassa 49 sek, 374176 siirtoa. Tarvitaan tehostusta.
+Tämän jälkeen olisi tarkoitus ajaa ratkaisu leveyshakuun perustuen. Ohjelma on kesken. Leveyshaku on toteutettu, mutta ei tehokas ja kaatuu muistiongelmaan 15 puzzlella. 8 puzzlella saatu kerran tulos 374175 siirtoa 49 sek. Nyt yritetään algoritmia Astar.  Aiemmin tehty leveyshaku käyttää liikaa aikaa ja muistia ratkaistaakseen 4x4 kokoisen Puzzlen, pisin ajo kesti 19 min 56 sek, päätyen muistin loppumiseen. 3x3 Puzzle saatiin kerran ratkaistua ajassa 49 sek, 374176 siirtoa. Tarvitaan tehostusta.
 
 
 ## Ohjelman syötteet
@@ -13,7 +13,9 @@ Tässä vaiheessa ohjelma ei pyydä syötteitä. Tarkoitus on, että käyttäjä
 
 ## Aika ja tilavaativuudet
 
-Tavoitteena on saada ratkaisijat toimimaan alle 10 minuutin. Tilavaatimusta ei ole vielä arvioitu. Leveyshakua täytyy optimoida, jos tavoitteisiin halutaan päästä. Toive on, että Astar saadaan toteutettua kurssin puitteissa
+Tavoitteena on saada ratkaisijat toimimaan alle 10 minuutin. Tilavaatimusta ei ole vielä arvioitu. Leveyshakua täytyy optimoida, jos tavoitteisiin halutaan päästä. Toive on, että Astar saadaan toteutettua kurssin puitteissa. Tällä hetkellä paras tulos on 32 ms, mutta jää siis jumiin ratkaistavissa olevalla puzzlella.
+
+Aika ja tilavaativuuden mittausta suorittavaa Result luokkaa on alettu toteuttaa.
 
 ## Lähteet
 
