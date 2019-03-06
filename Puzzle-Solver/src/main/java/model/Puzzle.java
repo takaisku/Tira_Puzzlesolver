@@ -398,7 +398,7 @@ public class Puzzle implements Comparable<Puzzle> {
     /**
      * Using parity of inversions if solvable
      * 
-     * @return 
+     * @return returns true if puzzle is solvable. 
      */
     
     

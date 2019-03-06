@@ -47,6 +47,11 @@ checkstyle {
     sourceSets = [project.sourceSets.main]
 }
 
+javadoc {
+source = sourceSets.main.allJava
+classpath = configurations.compile
+destinationDir = new File("Dokumentaatio/javadoc")
+}
 
 dependencies {
     // TODO: Add dependencies here ...

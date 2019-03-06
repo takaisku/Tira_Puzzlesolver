@@ -28,7 +28,7 @@ public class Queue {
     /**
      * new queue with first puzzle in it
      * default size is 16
-     * @param root 
+     * @param root starting puzzle
      */
     
     public Queue(Puzzle root) {

@@ -27,7 +27,7 @@ public class Stack {
     /**
      * Creating new stack with first Puzzle in it
      * default size 16
-     * @param root 
+     * @param root starting puzzle
      */
     
     public Stack(Puzzle root) {
