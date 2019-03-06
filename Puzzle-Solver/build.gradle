@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'application'
+apply plugin: 'checkstyle'
 mainClassName = 'ui.Main'
 
 
@@ -18,6 +19,16 @@ if (!hasProperty('mainClass')) {
     ext.mainClass = ''
 }
 
+run {
+    standardInput = System.in
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": 'ui.Main'
+    }
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true
@@ -31,6 +42,11 @@ repositories {
     // Read more about repositories here:
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:repositories
 }
+
+checkstyle {
+    sourceSets = [project.sourceSets.main]
+}
+
 
 dependencies {
     // TODO: Add dependencies here ...

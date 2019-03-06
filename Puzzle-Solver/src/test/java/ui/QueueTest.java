@@ -5,7 +5,7 @@
  */
 package ui;
 
-import Model.Puzzle;
+import model.Puzzle;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * @author tkarkine
  */
 public class QueueTest {
-    Queue que;
+    Stack que;
     Puzzle puzzle;
     
     public QueueTest() {
@@ -34,7 +34,7 @@ public class QueueTest {
     
     @Before
     public void setUp() {
-        que = new Queue();
+        que = new Stack();
         puzzle = new Puzzle(4);
     }
     

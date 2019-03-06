@@ -5,7 +5,7 @@
  */
 package ui;
 
-import Model.Puzzle;
+import model.Puzzle;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -36,8 +36,6 @@ public class HeapTest {
     @Before
     public void setUp() {
         heap= new Heap(15);
-        first= new Puzzle(new int[]{1,2,3,4,5,6,7,8,9,10,11,12,15,13,14,0});
-        second= new Puzzle(new int[]{1,2,3,4,15,6,7,8,9,10,11,12,5,13,14,0});   
     }
     
     @After
@@ -45,9 +43,22 @@ public class HeapTest {
     }
 
     @Test
-    public void returningBetterFirst() {
+    public void returningBetterFirst() {        
+        first= new Puzzle(new int[]{1,2,3,4,5,6,7,8,9,10,11,12,15,13,14,0});
+        second= new Puzzle(new int[]{1,2,3,4,15,6,7,8,9,10,11,12,5,13,14,0}); 
         heap.add(second);
         heap.add(first);
         assertEquals(first.manhattan(), heap.remove().manhattan());
+    }
+    
+    @Test
+    public void returningBestMoveFromSituation() {
+        first = new Puzzle(new int[]{14,13,5,12,2,3,15,4,8,0,11,9,10,1,7,6});
+        heap.add(first);
+        heap.add(first.moveDown());
+        heap.add(first.moveLeft());
+        heap.add(first.moveRight());
+        heap.add(first.moveUp());
+        assertEquals(heap.remove().asString(),first.moveUp().asString());
     }
 }
