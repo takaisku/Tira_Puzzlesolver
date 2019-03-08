@@ -32,30 +32,34 @@ public class Main {
         Scanner scanner;
         
         scanner = new Scanner(System.in);
+        System.out.println("Puzzlen ratkoja algoritmien vertailua\n");
+        System.out.println("Aluksi ratkaistu 15-puzzle:");
         
         first = new Puzzle(4);
         first.fill();
         System.out.println(first);
         System.out.println("");
         System.out.println("");
+        System.out.println("Anna luku, montako numeroa vaihdetaan:");
         int temp = scanner.nextInt();
         for ( int i = 0; i < 2; i++) {
             first.suffle(temp);
             if (first.check()) {
-                System.out.println("järjestyksessä");
-                System.out.println("manhattan: " + first.manhattan() + "\n");
+                System.out.println("Puzzle on edelleen järjestyksessä");
+                System.out.println("manhattan etäisyys: " + first.manhattan() + "\n");
             } else {
-                System.out.println("manhanttan: "+ first.manhattan() + "\n");
+                System.out.println("manhanttan etäisyys: "+ first.manhattan() + "\n");
                 System.out.println("ratkaistavissa: " + first.solvable() + "\n");
                 System.out.println("");
                 System.out.println(first);
-                System.out.println(""); 
+                System.out.println("jos vaihdetaan parillinen määrä yhteensä");
+                System.out.println("on puzzle ratkaistavissa, anna uusi luku, montako vaihdetaan:");
                 temp = scanner.nextInt();        
             }
         }
         
        
-       System.out.println("A-star");
+       System.out.println("Ratkaistaan algoritmilla A-star...odota");
       
        astar = new Astar(first);
        result= astar.showResult();
@@ -66,22 +70,27 @@ public class Main {
        astar = null;
        result= null;
        System.gc();
+       System.out.println("Puzzle voi olla myös muun kokoinen"); 
+       System.out.println("Varoitus, jos annat isomman luvun, tarvitaan muistia ja aikaa");
+       System.out.println("Suositus 3, anna luku puzzlen sivun pituudelle:");
        temp = scanner.nextInt();  
        
        
-       first = new Puzzle(3);
-       first.fill();
+       first = new Puzzle(temp);
+       first.fill();  
+       System.out.println("Vaihdan ensin parittoman määrän lukuja, (19)");
        first.suffle(19);
        System.out.println(first);
        System.out.println("manhanttan: "+ first.manhattan() + "\n");
        System.out.println("ratkaistavissa: " + first.solvable() + "\n");
+       System.out.println("Vaihdan vielä yhden lisää");
        first.suffle(1);
        System.out.println(first);
        System.out.println("manhanttan: "+ first.manhattan() + "\n");
        System.out.println("ratkaistavissa: " + first.solvable() + "\n");         
        
        
-       System.out.println("depth");
+       System.out.println("Aloitetaan syvyyshaulla, tämä kestää... malta");
       
        
        depth = new DepthFirst(first);
@@ -97,7 +106,7 @@ public class Main {
        
        System.out.println("");
        
-       System.out.println("breath");
+       System.out.println("Leveyshaku on paljon nopeampi");
       
        
        bread = new BreadthFirst(first);
@@ -112,7 +121,7 @@ public class Main {
        
        System.out.println("");
        
-       System.out.println("A-star");
+       System.out.println("Nopein näistä on  A-star algoritmi");
       
        astar = new Astar(first);
        result= astar.showResult();

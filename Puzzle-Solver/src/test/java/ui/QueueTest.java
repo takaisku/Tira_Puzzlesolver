@@ -18,8 +18,9 @@ import static org.junit.Assert.*;
  * @author tkarkine
  */
 public class QueueTest {
-    Stack que;
+    Queue que;
     Puzzle puzzle;
+
     
     public QueueTest() {
     }
@@ -34,7 +35,7 @@ public class QueueTest {
     
     @Before
     public void setUp() {
-        que = new Stack();
+        que = new Queue();
         puzzle = new Puzzle(4);
     }
     
@@ -70,7 +71,5 @@ public class QueueTest {
         que.add(first);
         que.add(second);
         assertEquals(3,que.remove().getRow());
-     
-        
     }
 }
